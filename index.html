@@ -1,0 +1,12 @@
+<h3>dB-Ratio Calculator</h3>
+<input type="radio" name="a" value=10 checked>10log
+<input type="radio" name="a" value=20>20log
+<br>
+<input type="text" id=0 size=5 placeholder=ratio onkeyup="ic(0,1)" onclick="cf(this.id)" autocomplete="off">
+<input type="text" id=1 size=5 placeholder=dB onkeyup="ci(1,0)" onclick="cf(this.id)" autocomplete="off">
+<script>
+function ge(a){return document.getElementById(a)}
+function cf(a){ge(a).value=""}
+function ic(a,b){ge(b).value=document.querySelector('input[name="a"]:checked').value*Math.log10(ge(a).value)}
+function ci(a,b){ge(b).value=Math.pow(10,ge(a).value/document.querySelector('input[name="a"]:checked').value)}
+</script>
