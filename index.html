@@ -8,7 +8,7 @@ dB<input type="text" id=1 placeholder=dB size=8 onkeyup="ci(1,0)" onclick="oc(th
 <fieldset style="width:10%;display:grid;"><legend>Bit-dB Calculator</legend>Bit<input type="text" id=2 placeholder=bit size=8 onkeyup="bd(2,3)" onclick="oc(this.id)">
 dB<input type="text" id=3 placeholder=dB size=8 onkeyup="db(3,2)" onclick="oc(this.id)"></fieldset></form>
 <hr style="height:0;border:0;">
-<fieldset style="width:90%"><legend>Compressor Calculator </legend>
+<fieldset style="width:100%"><legend>Compressor Calculator </legend>
 <table border=0 align="left" style="table-layout:fixed;width:100%;font-size:16;">
 <tr><td>Loss </td><td><input type="text" size=2 placeholder="dB" value=2 id=4 onkeyup="er()" onclick="oc(this.id)"></td></tr>
 <tr><td>Threshold </td><td colspan="6" style="width:80%;"><input type="range" id=5 min="-60" max="0" step="1" value="-30" oninput="of('th',5);er()"></td><td id="th">-30</td></tr>
