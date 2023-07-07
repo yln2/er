@@ -24,7 +24,7 @@ function pf(a){return parseFloat(a)}
 function ge(a){return document.getElementById(a)}
 function qv(a){return document.querySelector(`input[name=${a}]:checked`).value}
 function oc(a){ge(a).value=""}
-function tf(a){return a.toFixed(4)}
+function tf(a){return a.toFixed(2)}
 function md(a){return pf(tf(qv("a")*Math.log10(pf(a))))}
 function dm(a){return pf(tf(Math.pow(10,pf(a)/qv("a"))))}
 function ic(a,b){ge(b).value=md(ge(a).value)}
