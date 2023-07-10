@@ -8,15 +8,19 @@ dB<input type="text" id=1 placeholder=dB size=8 onkeyup="ci(1,0)" onclick="oc(th
 <fieldset style="width:10%;display:grid;"><legend>Bit-dB Calculator</legend>Bit<input type="text" id=2 placeholder=bit size=8 onkeyup="bd(2,3)" onclick="oc(this.id)">
 dB<input type="text" id=3 placeholder=dB size=8 onkeyup="db(3,2)" onclick="oc(this.id)"></fieldset><fieldset style="width:15%;display:grid;"><legend>to0dB Calculator</legend>dB<input type="text" id=11 placeholder="negative dB" size=8 onkeyup="te(11,12)" onclick="(()=>{ge(11).value='-'})()">to0dB:<x id=12> </x></fieldset>
 <fieldset style="width:15%;display:grid;"><legend>Sum( dB )</legend><input type="text" id=13 placeholder="dB1" size=8 onkeyup="sv()" onclick="oc(this.id)"><input type="text" id=14 placeholder="dB2" size=8 onkeyup="sv()" onclick="oc(this.id)"><input type="text" id=15 placeholder="dB3" size=8 onkeyup="sv()" onclick="oc(this.id)"><y id=16>sum: </y></fieldset>
+<fieldset id=30 style="width:10%;display:none;"><legend>%%</legend><input id=31 placeholder="%A" size=4 onkeyup="pp()" onclick="oc(this.id)"><input id=32 placeholder="%B" size=4 onkeyup="pp()" onclick="oc(this.id)"><z id=33> </z></fieldset>
+
+
+
 </form>
 <hr style="height:0;border:0;">
 <fieldset style="width:95%"><legend>Compressor Calculator </legend>
 <table border=0 align="left" style="table-layout:fixed;width:100%;font-size:16;">
 <tr><td>Loss </td><td><input type="text" size=2 placeholder="dB" value=5 id=4 onkeyup="er()" onclick="oc(this.id)"></td></tr>
 <tr><td>Threshold </td><td colspan="6" style="width:80%;"><input type="range" id=5 min="-60" max="0" step="1" value="-30" oninput="of('th',5);er()"></td><td id="th">-30</td></tr>
-<tr><td>Ratio </td><td colspan="6" style="width:80%;"><input type="range" id=6 min="1" max="8" step="0.1" value="2" oninput="of('rt',6);er()"></td><td id="rt">2</td></tr>
+<tr><td>Ratio </td><td colspan="6" style="width:80%;"><input type="range" id=6 min="1" max="6" step="0.1" value="2" oninput="of('rt',6);er()"></td><td id="rt">2</td></tr>
 <tr><td>Makeup </td><td colspan="6" style="width:80%;"><input type="range" id=7 min="0" max="30" step="0.1" value="12" oninput="of('mu',7);er()"></td><td id="mu"">12</td><td> rec'd dry↓</td></tr>
-<tr><td>Dry mix</td><td colspan="6" style="width:80%;"><input type="range" id=8 min="-72" max="0" step="0.2" value="0" oninput="of('dm',8);er()"></td><td id="dm">0</td><td style="font-weight:bold;" id="dr"></td></tr>
+<tr><td>Dry mix</td><td colspan="6" style="width:80%;"><input type="range" id=8 min="-60" max="0" step="0.2" value="0" oninput="of('dm',8);er()"></td><td id="dm">0</td><td style="font-weight:bold;" id="dr"></td></tr>
 <tr><td>⁤</td></tr>
 <tr align="left" valign="middle" style="font-size:16;font-weight:bold;"><td>║ Gain ║</td><td id="mg"></td><td>║ Wet ║</td><td id="wr"></td><td>║ npg ║</td><td id="ng"></td></tr>
 </fieldset>
@@ -38,10 +42,12 @@ function te(a,b){ge(b).innerHTML=`add ${md(1-dm(ge(a).value))} dB source to 0dB`
 function of(a,b){ge(a).innerHTML=ge(b).value}
 function ex(a){if(ge(a).value==""){return -240}return ge(a).value}
 function sv(){ge(16).innerHTML=`sum: ${md(dm(ex(13))+dm(ex(14))+dm(ex(15)))} dB`}
+function pp(){ge(33).innerHTML=`${md(ge(31).value/ge(32).value)} dB`}
 function er(){var m=(ge(5).value/ge(6).value)-ge(5).value;ge(7).setAttribute("max",m);if(ge(7).value>m){ge(7).value=m};of('mu',7);ge("dr").innerHTML=`/ ${md(1-dm(ge(7).value-m))} `;ge("mg").innerHTML=`${tf(md(dm(ge(7).value-m)+dm(ge(8).value))+pf(ge(4).value))} dB`;ge("wr").innerHTML=`${md(dm(ge(7).value-m)/dm(ge(8).value))} dB`;ge("ng").innerHTML=md(dm(ge(7).value)/dm(ge(8).value))}
-var k=[0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-function qs(){if(ge(98).value=="er"){ge(98).blur();ge(98).value="";ge(99).innerHTML=`${k[ge(4).value]}${k[-ge(5).value]}${k[ge(6).value]}${k[ge(7).value]}${k[-ge(8).value]}`}}
-if(location.search.substring(1)!=""){var m=location.search.substring(1).split("");ge(4).value=k.findIndex(e=>e==m[0]);ge(5).value=-k.findIndex(e=>e==m[1]);ge(6).value=k.findIndex(e=>e==m[2]);ge(7).value=k.findIndex(e=>e==m[3]);ge(8).value=-k.findIndex(e=>e==m[4])};
+function bp(a){return ge(a).value+'+'}
+function qs(){if(ge(98).value=="er"){ge(98).blur();ge(98).value="";ge(99).innerHTML=btoa(`${bp(4)}${bp(5)}${bp(6)}${bp(7)}${bp(8)}`).replace(/=+/,'')}if(ge(98).value=="`"){ge(98).blur();ge(98).value="";ge(30).style.display="grid"}}
+if(location.search.substring(1)!=""){var m=atob(location.search.substring(1)).split("+");ge(4).value=m[0];ge(5).value=m[1];ge(6).value=m[2];ge(7).value=m[3];ge(8).value=m[4];}
 er();
 </script>
 <style>td > input[type='range']{width:100%;}</style>
+
